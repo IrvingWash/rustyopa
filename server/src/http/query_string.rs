@@ -1,5 +1,6 @@
 use std::collections::HashMap;
 
+#[derive(Debug)]
 pub struct QueryString<'buff> {
     data: HashMap<&'buff str, QueryValue<'buff>>,
 }
@@ -37,6 +38,7 @@ impl<'buff> From<&'buff str> for QueryString<'buff> {
     }
 }
 
+#[derive(Debug)]
 pub enum QueryValue<'buff> {
     Single(&'buff str),
     Multiple(Vec<&'buff str>),

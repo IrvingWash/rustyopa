@@ -4,8 +4,9 @@ use std::str;
 use std::str::Utf8Error;
 
 use super::method::{Method, MethodError};
-use super::query_string::{QueryString, QueryValue};
+use super::query_string::QueryString;
 
+#[derive(Debug)]
 pub struct Request<'buff> {
     path: &'buff str,
     query_string: Option<QueryString<'buff>>,
@@ -29,8 +30,6 @@ impl<'buff> TryFrom<&'buff [u8]> for Request<'buff> {
         let method: Method = method.parse()?;
 
         let mut query_string = None;
-
-        let q = path.find('?');
 
         if let Some(i) = path.find('?') {
             query_string = Some(QueryString::from(&path[i + 1..]));
